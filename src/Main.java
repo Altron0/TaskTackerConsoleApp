@@ -7,24 +7,41 @@ public class Main {
         int couldTask = 0;
 
         //переменная которая отвечает за выбранную задачу
-        int UserPickTask;
+        int UserPickTask = 0;
 
         //Создание задач
         ListTask[] listTasks = new ListTask[20];
 
+        //Отвечает за выход из приложения
+        int ExitApplication = 0;
 
-        for(int i = 0;i < listTasks.length;i++){
+        for (int i = 0; i < listTasks.length; i++) {
             listTasks[i] = new ListTask();
         }
 
+        //Работа приложения
+        while (true) {
+            //проверка, есть ли у пользователя задачи
+            if (couldTask == 0) System.out.println("You have not the task");
+            else{
+            System.out.println("The list is your the task");
+            for(int i = 0; i < couldTask;i++){
+                listTasks[i].ShowTask();
+            }
 
-        while(true){
+            }
+
+            //Запрашивает у пользователя, хочет ли он добавить новую задачу в списко
             System.out.println("Add task?");
             System.out.println("1 for Yes, 2 for No");
             int UserInputAdd = scannerInteger();
-            switch (UserInputAdd){
+
+            //Дальше если пользователь выбрал "Yes", то ему предлагаеться ввести задачу
+            switch (UserInputAdd) {
                 case 1:
-                    listTasks[couldTask].AddTaskInList(scannerString(), false);
+                    System.out.println("Enter, Do you want to what's add?");
+                    String InputTask = scannerString();
+                    listTasks[couldTask].AddTaskInList(InputTask, false);
                     couldTask++;
                     break;
                 case 2:
@@ -32,35 +49,61 @@ public class Main {
             }
 
 
+            //Запрашивает у пользователя, хочет ли он удалить задачу
+            // из своего списка если они ранее были добавлены
             System.out.println("Delete Task?");
             System.out.println("1 for Yes, 2 for No");
             int UserInputDelete = scannerInteger();
 
-
-            if(UserInputDelete == 1){
+            //Если пользователь ввел "Yes", то ему выводиться список его задач которые он может удалить
+            if (UserInputDelete == 1) {
                 System.out.println("Enter from present task, which is do you need delete a task?");
-                for(int i = 0; i < listTasks.length; i++){
-                    System.out.println((i + 1) + ". " + listTasks[i].nameDescription);
+                for (int i = 0; i < listTasks.length; i++) {
+                    System.out.println(i + ". " + listTasks[i].nameDescription);
                 }
                 UserPickTask = scannerInteger();
                 couldTask--;
             }
 
-            
-            if(UserInputDelete == 1){
+            //Идет проверка еще одна, которая удаляет задачу из списка
+            if (UserInputDelete == 1) {
+                listTasks[UserInputAdd].DeleteTask(listTasks, UserPickTask);
+            }
 
+            //Выход из приложения
+            System.out.println("Do you want to exit with the application?");
+            System.out.println("1 for yes, 2 for not");
+            ExitApplication = scannerInteger();
+
+            //Проверка на введеное позьзователем условие, "Yes" для выхода или "No" для продолжения
+            switch (ExitApplication){
+
+                case 1:
+                    return;
+
+                case 2:
+                    continue;
             }
         }
     }
 
 
-    public static String scannerString(){
+    //Обработка и возвращение введенного данных типа boolean
+    public static boolean scannerBoolean(){
         Scanner scanner = new Scanner(System.in);
-        return scanner.next();
+        return scanner.nextBoolean();
     }
 
 
-    public static int scannerInteger(){
+    //Обработка и возвращение введенного данных типа String
+    public static String scannerString() {
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+
+    //Обработка и возвращение введенного данных типа Integer
+    public static int scannerInteger() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }

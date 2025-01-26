@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class ListTask extends Task{
 
     public ListTask(){}
@@ -8,16 +10,17 @@ public class ListTask extends Task{
     }
 
 
+    //Добавляет задачу от пользователя в его список задач
     public void AddTaskInList(String value, boolean check){
         setNameDescription(value);
         setCheck(check);
     }
 
 
-    public void DeleteTask(ListTask[] listTasks, int numberTask){
-        for(int i = 0; i < listTasks.length;i++){
+    //Удаление из списка задач от пользователя
+    public boolean DeleteTask(ListTask[] listTasks, int index){
 
-        }
+        return true;
     }
 
 
@@ -25,5 +28,9 @@ public class ListTask extends Task{
         setCheck(check);
     }
 
+
+    public void ShowTask(){
+        System.out.println(this.nameDescription);
+    }
 
 }
